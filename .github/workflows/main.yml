@@ -14,12 +14,15 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v1
+      - name: Setup .NET 9.0
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.0'
+          dotnet-version: '9.0.0-preview'
 
       - name: Build project
         run: dotnet build --configuration Release
+
+      - name: Run Tests
+        run: dotnet test --configuration Release
