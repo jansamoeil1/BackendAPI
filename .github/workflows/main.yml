@@ -16,10 +16,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Setup .NET 9.0
+      - name: Setup .NET 9.0.100
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '9.0.0-preview'
+          dotnet-version: '9.0.100'
 
       - name: Build project
         run: dotnet build --configuration Release
