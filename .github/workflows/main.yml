@@ -38,8 +38,8 @@ jobs:
         uses: einaregilsson/beanstalk-deploy@v21
         with:
           region: 'eu-north-1'
-          application_name: 'CryptoAPI'
-          environment_name: 'CryptoAPI-env'
+          application_name: 'BackendAPI'
+          environment_name: 'BackendAPI-env'
           version_label: 'v1.0-${GITHUB_SHA}' 
           zip_file: 'myapp.zip'  
         env:
