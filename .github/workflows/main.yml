@@ -49,5 +49,5 @@ jobs:
           version_label: v1.0-${GITHUB_SHA}
           # Skicka den zip-fil som vi skapade i föregående steg
           deployment_package: myapp.zip
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
