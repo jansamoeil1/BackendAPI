@@ -31,7 +31,9 @@ jobs:
       - name: Publish Application
         run: |
           dotnet publish -c Release -o ./publish
+          ls -la ./publish  # 🛠 Kontrollera att filerna finns
           zip -r myapp.zip ./publish
+          ls -la  # 🛠 Kontrollera att zip-filen skapats
 
       # Deploy to AWS Elastic Beanstalk
       - name: Deploy to AWS Elastic Beanstalk
@@ -42,5 +44,5 @@ jobs:
           region: eu-north-1
           application_name: BackendAPI
           environment_name: BackendAPI-env
-          version_label: v1.0-${{ github.sha }}
-          zip_file: myapp.zip
+          version_label: v1.0-${{ github.run_number }}-${{ github.sha }}
+          zip_file: ./myapp.zip
