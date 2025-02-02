@@ -36,7 +36,7 @@ jobs:
         run: |
           # Publicera för linux-x64 och inkludera runtimeconfig.json
           dotnet publish -c Release -r linux-x64 --self-contained false -o ./publish
-          # Skapa en zip-fil av publicerade filer
+          # Skapa en zip-fil av de publicerade filerna
           zip -r myapp.zip ./publish
 
       # Steg 6: Deploy till AWS Elastic Beanstalk
