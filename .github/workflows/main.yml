@@ -43,11 +43,10 @@ jobs:
       - name: Deploy to AWS Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with:
-          region: eu-north-1
-          application_name: BackendAPI
-          environment_name: BackendAPI-env
-          version_label: v1.0-${GITHUB_SHA}
-          # Skicka den zip-fil som vi skapade i föregående steg
-          deployment_package: myapp.zip
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: eu-north-1
+          application_name: EncryptAPI
+          environment_name: EncryptAPI-env
+          version_label: ${{ github.run_id }}
+          deployment_package: site.zip
