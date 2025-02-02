@@ -32,7 +32,7 @@ jobs:
         run: dotnet test --configuration Release
 
       # Steg 5: Publicera applikationen och skapa en zip-fil
-      - name: Publish Application
+      - name: create zip package
         run: cd site; zip ../site.zip *;
 
       # Steg 6: Deploy till AWS Elastic Beanstalk
