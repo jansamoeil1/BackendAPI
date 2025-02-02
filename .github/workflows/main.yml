@@ -13,36 +13,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Steg 1: Checkout repo
       - name: Checkout repo
         uses: actions/checkout@v3
 
+      # Steg 2: Setup .NET 9.0.100
       - name: Setup .NET 9.0.100
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '9.0.100'
 
+      # Steg 3: Bygg projektet
       - name: Build project
         run: dotnet build --configuration Release
 
+      # Steg 4: Kör tester
       - name: Run Tests
         run: dotnet test --configuration Release
 
-      # Skapa en zip-fil för din applikation
+      # Steg 5: Publicera applikationen och skapa en zip-fil
       - name: Publish Application
         run: |
-          dotnet publish -c Release -o ./publish
-          ls -la ./publish  # 🛠 Kontrollera att filerna finns
+          # Publicera för linux-x64 och inkludera runtimeconfig.json
+          dotnet publish -c Release -r linux-x64 --self-contained false -o ./publish
+          # Skapa en zip-fil av publicerade filer
           zip -r myapp.zip ./publish
-          ls -la  # 🛠 Kontrollera att zip-filen skapats
 
-      # Deploy to AWS Elastic Beanstalk
+      # Steg 6: Deploy till AWS Elastic Beanstalk
       - name: Deploy to AWS Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           region: eu-north-1
           application_name: BackendAPI
           environment_name: BackendAPI-env
-          version_label: v1.0-${{ github.run_number }}-${{ github.sha }}
-          deployment_package: ./myapp.zip  # 🛠 Använd rätt parameter
+          version_label: v1.0-${GITHUB_SHA}
+          # Skicka den zip-fil som vi skapade i föregående steg
+          deployment_package: myapp.zip
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
