@@ -45,4 +45,4 @@ jobs:
           application_name: BackendAPI
           environment_name: BackendAPI-env
           version_label: v1.0-${{ github.run_number }}-${{ github.sha }}
-          zip_file: ./myapp.zip
+          deployment_package: ./myapp.zip  # 🛠 Använd rätt parameter
