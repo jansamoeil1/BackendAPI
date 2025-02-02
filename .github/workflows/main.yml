@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - dev
   pull_request:
     branches:
       - main
@@ -13,29 +14,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Steg 1: Checkout repo
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      # Steg 2: Setup .NET 9.0.100
       - name: Setup .NET 9.0.100
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '9.0.100'
 
-      # Steg 3: Bygg projektet
       - name: Build project
         run: dotnet build --configuration Release
 
-      # Steg 4: Kör tester
       - name: Run Tests
         run: dotnet test --configuration Release
 
-      # Steg 5: Publicera applikationen och skapa en zip-fil
-      - name: create zip package
-        run: cd site; zip ../site.zip *;
+      - name: Publish Application
+        run: dotnet publish -c Release -o ./publish
 
-      # Steg 6: Deploy till AWS Elastic Beanstalk
+      - name: Zip published files
+        run: |
+          cd publish
+          zip -r ../site.zip ./*
+          cd ..
+
       - name: Deploy to AWS Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with:
