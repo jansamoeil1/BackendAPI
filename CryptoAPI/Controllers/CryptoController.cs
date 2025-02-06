@@ -7,7 +7,7 @@ namespace CryptoAPI.Controllers
     [ApiController]
     public class CryptoController : ControllerBase
     {
-        private const int Shift = 3; // Skiftning på 3 steg
+        private const int Shift = 3; 
 
         // POST: api/crypto/encrypt
         [HttpPost("encrypt")]
